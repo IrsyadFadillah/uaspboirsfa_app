@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section class="text-center">
+    <!-- Background image -->
+    <div class="p-5 bg-image" style="
+          background-image: url('https://i.postimg.cc/FKh62ksR/FYEwoa6a-AAEs16-E.jpg');
+          height: 250px;
+          "></div>
+    <!-- Background image -->
+  
+    <div class="card mx-4 mx-md-5 shadow-5-strong" style="
+          margin-top: -100px;
+          background: hsla(0, 0%, 100%, 0.8);
+          backdrop-filter: blur(30px);
+          ">
+    <div class="card-body py-5 px-md-5">
+  
+        <div class="row d-flex justify-content-center">
+            <div class="col-lg-8">
+                <h2 class="fw-bold mb-3">DETAIL</h2><br>
+                <div class="card md-auto style="max-width: 540px; style="padding: 4%">
+                    <div class="row g-0">
+                      <div class="col-md-4" style="margin-top: 100px;">
+                        <img  src="{% static negara.gambar %}" class="border border-dark img-fluid rounded-start" alt="...">
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ negara.nama_negara }}</h5>
+                          <p class="card-text"><small class="text-muted">{{ negara.letak_astronomi }}</small></p>
+                        </div>
+                        <div>
+                            <table style="text-align: left; margin-left: 100px ;">
+                              <tr>
+                                <td>Ibu Kota</td>
+                                <td> : {{ negara.ibu_kota }}</td>
+                              </tr>
+                              <tr>
+                                <td>Mata Uang</td>
+                                <td> : {{ negara.mata_uang }}</td>
+                              </tr>
+                              <tr>
+                                <td>Bahasa Resmi</td>
+                                <td> : {{ negara.bahasa_resmi }}</td>
+                              </tr>
+                              <tr>
+                                <td>Bentuk Pemerintahan</td>
+                                <td> : {{ negara.bentuk_pemerintahan }}</td>
+                              </tr>
+                              <tr>
+                                <td>Berada di Benua</td>
+                                <td> : {{ negara.benua_id }}</td>
+                              </tr>
+                              <td></td>
+                                <td style="text-align: justify;"><small class="text-muted">{{ negara.benua_id.keterangan }}</small></p></td>
+                              <tr>
+                                <td><a href="/halaman1"><button type="button" class="btn btn-outline-secondary">Kembali</button></a></td>
+                                <td></td>
+                              </tr>
+                            </table>            
+                            <br><br>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</section>
+<br><br><br>
+{% endblock %}

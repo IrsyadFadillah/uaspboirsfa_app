@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container">
+    <div class="d-flex flex-wrap justify-content-center py-3 mb-4 ">
+        <h2 class="fw-bold mb-3">Sebaran Konservasi dan Data Dunia</h2>
+    </div>
+    <div id= "map" style = "width: 100%; height: 450px;" ></div><br><br>
+                
+            <script>
+                var petaku = L.map('map').setView([25.68651628467666, 28.82407659463634], 2);
+            
+                var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+                        maxZoom: 19,
+                        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                            '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                            'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                        id: 'mapbox/satellite-v9'
+                }).addTo(petaku);
+                {% for datakonservasi in conservation %}
+                L.marker([{{ datakonservasi.titik_koordinat }}]).addTo(petaku). bindPopup('<b>{{ datakonservasi.nama_konservasi }}</b><br>Titik koordinat: {{ datakonservasi.titik_koordinat }}<br>Asal negara: {{ datakonservasi.letak_negara }}');
+                {% endfor %}
+            </script>   
+                
+    <div class="d-flex flex-wrap justify-content-center py-3 mb-1 ">
+        <h3 class="fw-bold mb-1">Data Sebaran</h3>   
+    </div>
+    <div class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Nama Konservasi</th>
+                <th scope="col">Titik Koordinat</th>
+                <th scope="col">Letak Negara</th>
+                <th scope="col">Aksi</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for datakonservasi in conservation %}
+            <tr>
+                <td>{{ datakonservasi.nama_konservasi }}</td>
+                <td>{{ datakonservasi.titik_koordinat }}</td>
+                <td>{{ datakonservasi.letak_negara }}</td>
+                <td>
+                    <a href="{% url 'update_datapeta' datakonservasi.pk %}"><button type="button" class="btn btn-outline-warning">Edit</button></a><br>
+                    <a href="{% url 'delete_datapeta' datakonservasi.pk %}"><button type="button" class="btn btn-outline-danger">Hapus</button></a>
+                </td>
+
+            </tr>
+            
+            {% endfor %}
+            
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br><br>
+<div class="container">
+    <div class="d-flex flex-wrap justify-content-center py-3 mb-1 ">
+        <h3 class="fw-bold mb-3">Data Dunia</h3>   
+    </div>
+    <div class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Nama Negara</th>
+                <th scope="col">Letak Astronomi</th>
+                <th scope="col">Ibu Kota</th>
+                <th scope="col">Mata Uang</th>
+                <th scope="col">Benua</th>
+                <th scope="col">Bendera</th>
+                <th scope="col">Aksi</th>
+                
+        
+            </tr>
+            </thead>
+            <tbody>
+                {% for datanegara in country %}
+            <tr>
+                <td>{{ datanegara.nama_negara }}</td>
+                <td>{{ datanegara.letak_astronomi }}</td>
+                <td>{{ datanegara.ibu_kota }}</td>
+                <td>{{ datanegara.mata_uang }}</td>
+                <td>{{ datanegara.benua_id}}</td>
+                <td><img style="height: 100px;" class="border border-dark" src="{% static datanegara.gambar %}"></td>
+                <td>
+                    <a href="{{ datanegara.pk }}"><button type="button" class="btn btn-outline-danger">Detail</button></a><br>
+                    <a href="{% url 'update_data' datanegara.pk %}"><button type="button" class="btn btn-outline-warning">Edit</button></a><br>
+                    <a href="{% url 'delete_data' datanegara.pk %}"><button type="button" class="btn btn-outline-info">Hapus</button></a>
+                </td>
+
+            </tr>
+            
+            {% endfor %}
+            
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
